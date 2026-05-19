@@ -58,7 +58,7 @@
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 78px 26px 1fr 86px;
+    grid-template-rows: 78px 26px minmax(0, 1fr) auto;
   }
   @media print {
     body { background: #fff; display: block; }
@@ -66,6 +66,7 @@
       width: 17in; height: 11in;
       min-width: 0; min-height: 0;
       margin: 0; box-shadow: none;
+      grid-template-rows: 78px 26px 1fr 132px;
     }
     .resizer { display: none !important; }
     .panel { overflow: hidden !important; }
@@ -441,16 +442,18 @@
   /* FOOTER */
   footer {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 340px;
     align-items: stretch;
     border-top: 1px solid var(--rule);
     background: var(--paper);
+    min-height: 124px;
   }
   .market-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 14px 36px;
-    gap: 24px;
+    padding: 14px 36px 16px;
+    gap: 22px;
+    align-items: start;
   }
   .stat {
     border-left: 2px solid var(--peacock);
@@ -467,22 +470,22 @@
     letter-spacing: -0.015em;
   }
   .stat .label {
-    font-size: 9.5px;
+    font-size: 9px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin: 6px 0 2px;
+    margin: 6px 0 3px;
   }
   .stat .detail {
     font-size: 10px;
     color: var(--ink-soft);
-    line-height: 1.35;
+    line-height: 1.4;
   }
 
   .cta {
     background: var(--peacock);
     color: #F4EFE6;
-    padding: 14px 24px 14px 22px;
+    padding: 14px 24px 16px 22px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -498,15 +501,16 @@
   .cta .cta-line {
     font-family: "DM Serif Display", serif;
     font-style: italic;
-    font-size: 17px;
+    font-size: 15px;
     color: #F8F4EC;
-    line-height: 1.18;
-    margin-bottom: 8px;
+    line-height: 1.22;
+    margin-bottom: 10px;
   }
   .cta .cta-meta {
     font-size: 10px;
     color: rgba(244, 239, 230, 0.78);
     letter-spacing: 0.03em;
+    line-height: 1.45;
   }
   .cta .cta-meta a { color: #F4EFE6; text-decoration: none; border-bottom: 1px solid rgba(244,239,230,0.4); }
 
@@ -596,20 +600,20 @@
       <img src="assets/logos/resource-logo-full-horizontal-color-dark.png" alt="Resource Commercial Real Estate" />
     </div>
     <div class="title">
-      <div class="eyebrow">Local Market Brief · Mission Bay / China Basin</div>
+      <div class="eyebrow">Relocation Brief · Mission Bay · 20–70k SF</div>
       <h1>What's leasing <em>at your door</em></h1>
     </div>
     <div class="meta">
       <div><span class="label">As&nbsp;of</span> May 19, 2026</div>
-      <div><span class="label">Prepared&nbsp;for</span> <span class="name">Pear&nbsp;VC · Pear&nbsp;Studio&nbsp;SF</span></div>
+      <div><span class="label">Prepared&nbsp;for</span> <span class="name">Tom&nbsp;Glaser · Pear&nbsp;VC</span></div>
       <div><span class="label">Prepared&nbsp;by</span> Brandon Leitner · brandon@yourresource.com</div>
     </div>
   </header>
 
   <!-- ============= SUBHEAD ============= -->
   <div class="subhead">
-    <div class="anchor"><span class="dot"></span> Anchor: <strong>1800 Owens Street, San Francisco</strong> · within a 10-minute walk of every property below</div>
-    <div class="lede">8 leases signed nearby in the last 8 quarters. 7 buildings have space. Here's what it means for Pear.</div>
+    <div class="anchor"><span class="dot"></span> Anchor: <strong>1800 Owens</strong> <em style="color:var(--purple);font-style:italic">(departing)</em> · target <strong>20–70k SF</strong> · 10-min walk</div>
+    <div class="lede">Mission Bay is becoming a three-engine district — AI, UCSF, and maturing mixed-use. OpenAI just took 280k SF in your building. Here's where Pear can land.</div>
   </div>
 
   <!-- ============= BODY ============= -->
@@ -644,8 +648,8 @@
       <!-- ===== AVAILABLE NOW ===== -->
       <section class="panel">
         <div class="panel-head">
-          <div class="panel-title"><span class="accent">Available</span> &nbsp;now</div>
-          <div class="panel-meta">7 buildings · 719k SF on market</div>
+          <div class="panel-title"><span class="accent">Landing</span> &nbsp;zones</div>
+          <div class="panel-meta">6 buildings · ~358k SF fits 20–70k</div>
         </div>
         <div class="panel-list">
 
@@ -659,11 +663,12 @@
               </div>
               <div class="card-sub">540k SF · 94.7% leased · Built 1920 / reno 2020 · 4th &amp; King — 3 min walk</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">2.2k–33.0k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">28,603</span></div>
-                <div class="stat-cell"><span class="k">Spaces</span><span class="v">3</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">28,603</span></div>
+                <div class="stat-cell"><span class="k">Options</span><span class="v">1 of 3</span></div>
+                <div class="stat-cell"><span class="k">Floor</span><span class="v">1</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
+              <div class="note">Plus two suites under 5k SF (out of band).</div>
             </div>
           </div>
 
@@ -677,11 +682,12 @@
               </div>
               <div class="card-sub">100k SF · 0% pre-leased · Delivery Sep 2027 · R&amp;D / Life-Science</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">16k–100k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">100,000</span></div>
-                <div class="stat-cell"><span class="k">Floors</span><span class="v">6</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">20k–68k</span></div>
+                <div class="stat-cell"><span class="k">Options</span><span class="v">1–4 floors</span></div>
+                <div class="stat-cell"><span class="k">Floor plate</span><span class="v">16–20k</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
+              <div class="note">Pre-leasing now — only purpose-built new-construction option in the band.</div>
             </div>
           </div>
 
@@ -695,11 +701,12 @@
               </div>
               <div class="card-sub">38k SF · 40.2% leased · Built 1925 · PDR-1G · 800a heavy power</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">3.2k–22.7k</span></div>
-                <div class="stat-cell"><span class="k">Office/Retail</span><span class="v">18,194</span></div>
-                <div class="stat-cell"><span class="k">Flex</span><span class="v">4,510</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">22,704</span></div>
+                <div class="stat-cell"><span class="k">Type</span><span class="v">Contig only</span></div>
+                <div class="stat-cell"><span class="k">Use</span><span class="v">Office / Flex</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
+              <div class="note">Floor-by-floor demise falls under band; whole-building lease lands in it.</div>
             </div>
           </div>
 
@@ -713,11 +720,12 @@
               </div>
               <div class="card-sub">438k SF · 88.6% leased · Built 1920 / reno 2008 · 225 covered parking</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">37.3k–137.5k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">87,405</span></div>
-                <div class="stat-cell"><span class="k">Spaces</span><span class="v">2</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">37,312 · 50,093</span></div>
+                <div class="stat-cell"><span class="k">Options</span><span class="v">2</span></div>
+                <div class="stat-cell"><span class="k">Floors</span><span class="v">2 (part), 3</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
+              <div class="note">Floor 2 also offers up to 87k contig if you grow into it.</div>
             </div>
           </div>
 
@@ -731,11 +739,12 @@
               </div>
               <div class="card-sub">227k SF · 78.2% leased · Built 2009 · 6 sublets thru Jan 2030, 4 direct</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">5.1k–175.9k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">102,283</span></div>
-                <div class="stat-cell"><span class="k">Spaces</span><span class="v">10</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">22.4k–24.3k</span></div>
+                <div class="stat-cell"><span class="k">Options</span><span class="v">4 (1 dir · 3 sublet)</span></div>
+                <div class="stat-cell"><span class="k">Floors</span><span class="v">2, 3, 4</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
+              <div class="note">Sublets run thru Jan 2030. Alexandria is reportedly shifting <span class="hi">500k+ SF</span> of Mission Bay allocation toward AI demand — direct supply may flex.</div>
             </div>
           </div>
 
@@ -749,29 +758,12 @@
               </div>
               <div class="card-sub">213k SF · 94.5% leased · 7 floors · Gladstone Institutes anchor</div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">11.8k–116.4k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">116,390</span></div>
-                <div class="stat-cell"><span class="k">Roof terrace</span><span class="v">Yes</span></div>
+                <div class="stat-cell"><span class="k">In-band</span><span class="v green">33.3k–37.2k</span></div>
+                <div class="stat-cell"><span class="k">Options</span><span class="v">3 floors</span></div>
+                <div class="stat-cell"><span class="k">Floors</span><span class="v">2, 3, 4</span></div>
                 <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
               </div>
-            </div>
-          </div>
-
-          <!-- 7 -->
-          <div class="card">
-            <div class="pin-num avail">7</div>
-            <div class="card-body">
-              <div class="card-head">
-                <div class="card-title">1800 Owens St <em>· Icona Labs · your bldg</em></div>
-                <div class="card-tag hot">Expansion option</div>
-              </div>
-              <div class="card-sub">752k SF · 85.7% leased · OpenAI / Vir / Bridgebio · 134 surface @ $345/mo</div>
-              <div class="stats">
-                <div class="stat-cell"><span class="k">Avail SF</span><span class="v green">3.4k–133.8k</span></div>
-                <div class="stat-cell"><span class="k">Max contig</span><span class="v">27,517</span></div>
-                <div class="stat-cell"><span class="k">Spaces</span><span class="v">6</span></div>
-                <div class="stat-cell"><span class="k">Ask</span><span class="v">Withheld</span></div>
-              </div>
+              <div class="note">Gladstone Inst. just anchored Fl 5–7 (<span class="hi">105k SF, 30 new labs</span>) — Floors 2/3/4 are the band-sized floors that remain in this brand-new 2025 delivery.</div>
             </div>
           </div>
 
@@ -781,12 +773,30 @@
       <!-- ===== RECENT COMPARABLES ===== -->
       <section class="panel">
         <div class="panel-head">
-          <div class="panel-title gold"><span class="accent">Recent</span> &nbsp;comparables</div>
-          <div class="panel-meta">8 leases · 826k SF · Q3 2024 → Q1 2026</div>
+          <div class="panel-title gold"><span class="accent">Comps</span> &nbsp;at your size</div>
+          <div class="panel-meta">5 leases · 235k SF · 20–70k band</div>
         </div>
         <div class="panel-list">
 
-          <!-- A General Catalyst -->
+          <!-- N Nvidia (newest, AI cluster signal) -->
+          <div class="card">
+            <div class="pin-num comp">N</div>
+            <div class="card-body">
+              <div class="card-head">
+                <div class="card-title">Nvidia <em>· 1051 3rd · Mission Rock B</em></div>
+                <div class="card-tag hot">2026 · First Nvidia office in SF</div>
+              </div>
+              <div class="stats">
+                <div class="stat-cell"><span class="k">RSF</span><span class="v">45,000</span></div>
+                <div class="stat-cell"><span class="k">Type</span><span class="v">New lease</span></div>
+                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">Withheld</span></div>
+                <div class="stat-cell"><span class="k">Use</span><span class="v">Office · AI</span></div>
+              </div>
+              <div class="note">Mission Rock B now hosts <span class="hi">Warriors, Coinbase, Nvidia</span> — the AI / sports waterfront cluster solidifies.</div>
+            </div>
+          </div>
+
+          <!-- A General Catalyst (Q1 2026, top of market) -->
           <div class="card">
             <div class="pin-num comp">A</div>
             <div class="card-body">
@@ -804,51 +814,16 @@
             </div>
           </div>
 
-          <!-- B Site Therapeutics -->
-          <div class="card">
-            <div class="pin-num comp">B</div>
-            <div class="card-body">
-              <div class="card-head">
-                <div class="card-title">Site Therapeutics <em>· 1500 Owens · Alexandria</em></div>
-                <div class="card-tag">Q4 2025 · Short term</div>
-              </div>
-              <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">10,787 · Ground</span></div>
-                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">New · 1y NNN</span></div>
-                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$85.94</span></div>
-                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">0 mo · $0</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- C Coinbase -->
-          <div class="card">
-            <div class="pin-num comp">C</div>
-            <div class="card-body">
-              <div class="card-head">
-                <div class="card-title">Coinbase <em>· 1051 3rd · Mission Rock B</em></div>
-                <div class="card-tag">Q2 2025 · Landmark</div>
-              </div>
-              <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">150,671 · 5–8</span></div>
-                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">New · 12y FS</span></div>
-                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$73.00</span></div>
-                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">12 mo · $250</span></div>
-              </div>
-              <div class="note">Net effective <span class="hi">$80.25</span> · 3.0% esc · Mitsui Fudosan / Tishman Speyer · Built 2023</div>
-            </div>
-          </div>
-
-          <!-- D Golden State Warriors -->
+          <!-- D Golden State Warriors (Q4 2024, in-band) -->
           <div class="card">
             <div class="pin-num comp">D</div>
             <div class="card-body">
               <div class="card-head">
                 <div class="card-title">Golden State Warriors <em>· 1051 3rd · Mission Rock B</em></div>
-                <div class="card-tag">Q4 2024 · Same bldg, lower floors</div>
+                <div class="card-tag">Q4 2024 · Same bldg as Nvidia</div>
               </div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">70,791 · 3–4</span></div>
+                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">70,791 · Fl 3–4</span></div>
                 <div class="stat-cell"><span class="k">Type / Term</span><span class="v">New · 12y NNN</span></div>
                 <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$75.00</span></div>
                 <div class="stat-cell"><span class="k">Free / TI</span><span class="v">18 mo · $250</span></div>
@@ -857,43 +832,25 @@
             </div>
           </div>
 
-          <!-- E UCSF -->
+          <!-- H Nudge (in Pear's building, Q4 2024) -->
           <div class="card">
-            <div class="pin-num comp">E</div>
+            <div class="pin-num comp">H</div>
             <div class="card-body">
               <div class="card-head">
-                <div class="card-title">UC Regents (UCSF) <em>· 499 Illinois · Alexandria</em></div>
-                <div class="card-tag">Q2 2025 · Renewal + expansion</div>
+                <div class="card-title">Nudge <em>· 1800 Owens · Pear's building</em></div>
+                <div class="card-tag hot">Q4 2024 · Last small-tenant deal pre-OpenAI</div>
               </div>
               <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">159,648 · 2–5</span></div>
-                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">Renewal · 15y NNN</span></div>
-                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$72.00</span></div>
-                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">24 mo · $400</span></div>
+                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">29,544 · Fl 9</span></div>
+                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">Sublease · 5y3m FS</span></div>
+                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$29.00</span></div>
+                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">6 mo · —</span></div>
               </div>
-              <div class="note">49k SF renewal Fl 5 + 110k SF new Fl 2–4 · Heaviest TI package in this set</div>
+              <div class="note">The remaining ~280k SF of that Dropbox sublease has now gone to <span class="hi">OpenAI</span> in 2026. Nudge is the last small-tenant precedent in Pear's building before AI absorbed the floors above.</div>
             </div>
           </div>
 
-          <!-- F OpenAI -->
-          <div class="card">
-            <div class="pin-num comp">F</div>
-            <div class="card-body">
-              <div class="card-head">
-                <div class="card-title">OpenAI <em>· 550 Terry A Francois Blvd</em></div>
-                <div class="card-tag hot">Q3 2024 · Trophy / Bay-front</div>
-              </div>
-              <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">315,000 · Entire G+2–6</span></div>
-                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">New · 10y FS</span></div>
-                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$106.00</span></div>
-                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">22 mo · $260</span></div>
-              </div>
-              <div class="note">DivcoWest / CBRE · Net effective <span class="hi">$101.82</span> · 3.0% esc</div>
-            </div>
-          </div>
-
-          <!-- G Nurix -->
+          <!-- G Nurix (Q3 2024, short extension) -->
           <div class="card">
             <div class="pin-num comp">G</div>
             <div class="card-body">
@@ -907,24 +864,7 @@
                 <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$78.72</span></div>
                 <div class="stat-cell"><span class="k">Free / TI</span><span class="v">0 mo · As-Is</span></div>
               </div>
-            </div>
-          </div>
-
-          <!-- H Nudge (in Pear's building) -->
-          <div class="card">
-            <div class="pin-num comp">H</div>
-            <div class="card-body">
-              <div class="card-head">
-                <div class="card-title">Nudge <em>· 1800 Owens · in your building</em></div>
-                <div class="card-tag hot">Q4 2024 · Sublease from Dropbox</div>
-              </div>
-              <div class="stats">
-                <div class="stat-cell"><span class="k">RSF / Floor</span><span class="v">29,544 · Fl 9</span></div>
-                <div class="stat-cell"><span class="k">Type / Term</span><span class="v">Sublease · 5y3m FS</span></div>
-                <div class="stat-cell"><span class="k">Start rent</span><span class="v gold">$29.00</span></div>
-                <div class="stat-cell"><span class="k">Free / TI</span><span class="v">6 mo · —</span></div>
-              </div>
-              <div class="note">Sublessor Dropbox · Spread vs direct: <span class="hi">−$37/SF</span> (direct est. $66.25)</div>
+              <div class="note">Lab use · 19k SF · just under the band but useful price marker for small built-out lab space.</div>
             </div>
           </div>
 
@@ -938,29 +878,29 @@
   <footer>
     <div class="market-stats">
       <div class="stat">
-        <div class="num">$72&nbsp;–&nbsp;$110</div>
-        <div class="label">Direct starting rents · psf</div>
-        <div class="detail">Direct leases cluster $72–$78 NNN at lab/office; trophy office (1070 Maryland, 550 Terry) prints $106–$110 FS.</div>
+        <div class="num">280k SF</div>
+        <div class="label">Why Pear is moving</div>
+        <div class="detail">OpenAI just subleased the former Dropbox space at 1800 Owens; its Mission Bay footprint now tops <strong>1M SF</strong>. KKR refinanced the complex at <strong>$600M</strong> — capital is still confident here.</div>
       </div>
       <div class="stat">
-        <div class="num">826k SF</div>
-        <div class="label">Leased nearby · last 8 quarters</div>
-        <div class="detail">8 transactions across 7 buildings. Coinbase, UCSF and OpenAI alone account for 625k of it.</div>
+        <div class="num">$75&nbsp;–&nbsp;$110</div>
+        <div class="label">In-band starting rents · psf</div>
+        <div class="detail">Warriors $75 NNN at Mission Rock; General Catalyst $110 FS at Pier 70 B12. Nvidia's 45k SF lands between them as the newest AI-tenant data point.</div>
       </div>
       <div class="stat">
-        <div class="num">719k SF</div>
-        <div class="label">Currently available · 7 buildings</div>
-        <div class="detail">Range from 2,157 SF (Wharfside) to 175,927 SF (Alexandria 455 MBB). Sublet share is meaningful at 455 MBB.</div>
+        <div class="num">5 · 235k SF</div>
+        <div class="label">In-band deals · last 8 quarters</div>
+        <div class="detail">Nvidia, General Catalyst, Warriors, Nudge, Nurix. Mission Rock B now hosts <strong>three</strong> of them — the waterfront AI / sports cluster.</div>
       </div>
       <div class="stat">
-        <div class="num">−56%</div>
-        <div class="label">Sublease discount in your bldg</div>
-        <div class="detail">Nudge took 9th-floor Dropbox sublease at $29 FS vs an est. $66 direct — the cheapest line in the brief, on your floor neighbor.</div>
+        <div class="num">~358k SF</div>
+        <div class="label">In-band supply · 6 bldgs</div>
+        <div class="detail">Excludes 1800 Owens. Alexandria is reportedly shifting <strong>500k+ SF</strong> of Mission Bay allocation toward AI — supply at 455 MBB &amp; 1450 Owens may flex. UCSF removed 409/499 Illinois with a <strong>$767M</strong> buy.</div>
       </div>
     </div>
     <div class="cta">
       <div class="cta-eyebrow">Next step</div>
-      <div class="cta-line">A 20-minute walkthrough — what these comps mean for Pear's next move.</div>
+      <div class="cta-line">Tom — twenty minutes on Pear's next landing zone, before the AI cluster prices the rest of the band.</div>
       <div class="cta-meta">
         Brandon Leitner · <a href="mailto:brandon@yourresource.com">brandon@yourresource.com</a><br/>
         Resource Commercial Real Estate · CoStar &amp; CompStak data as of 05.19.2026
@@ -1019,48 +959,31 @@
       q: "1450 Owens Street, San Francisco, CA 94158",
       fallback: [-122.39463, 37.76884],
       tip: "Alexandria's Center · 1450 Owens St" },
-    { id: "a7", type: "avail", label: "7",
-      q: "1800 Owens Street, San Francisco, CA 94158",
-      fallback: [-122.39381, 37.76823],
-      offset: [0.0005, 0.0],
-      tip: "Icona Labs · 1800 Owens St (your building)" },
 
-    // Comparables (gold squares A–H)
+    // Comparables (gold squares) — filtered to the 20–70K SF band
+    { id: "cN", type: "comp", label: "N",
+      q: "1051 3rd Street, San Francisco, CA 94158",
+      fallback: [-122.38959, 37.77140],
+      offset: [-0.0004, 0.0],
+      tip: "Nvidia · 45,000 SF · 1051 3rd St (Mission Rock B) · first SF office" },
     { id: "cA", type: "comp", label: "A",
       q: "1070 Maryland Street, San Francisco, CA 94107",
       fallback: [-122.38820, 37.75895],
-      tip: "General Catalyst · 1070 Maryland St" },
-    { id: "cB", type: "comp", label: "B",
-      q: "1500 Owens Street, San Francisco, CA 94158",
-      fallback: [-122.39455, 37.76869],
-      tip: "Site Therapeutics · 1500 Owens St" },
-    { id: "cC", type: "comp", label: "C",
-      q: "1051 3rd Street, San Francisco, CA 94158",
-      fallback: [-122.38959, 37.77140],
-      tip: "Coinbase · 1051 3rd St (Mission Rock B)" },
+      tip: "General Catalyst · 70,000 SF · 1070 Maryland St" },
     { id: "cD", type: "comp", label: "D",
       q: "1051 3rd Street, San Francisco, CA 94158",
       fallback: [-122.38959, 37.77140],
-      offset: [0.0004, 0.0],
-      tip: "Golden State Warriors · 1051 3rd St" },
-    { id: "cE", type: "comp", label: "E",
-      q: "499 Illinois Street, San Francisco, CA 94158",
-      fallback: [-122.38843, 37.76722],
-      tip: "UCSF · 499 Illinois St (Alexandria)" },
-    { id: "cF", type: "comp", label: "F",
-      q: "550 Terry A Francois Boulevard, San Francisco, CA 94158",
-      fallback: [-122.38771, 37.77103],
-      tip: "OpenAI · 550 Terry A Francois Blvd" },
+      tip: "Golden State Warriors · 70,791 SF · 1051 3rd St" },
     { id: "cG", type: "comp", label: "G",
       q: "455 Mission Bay Boulevard South, San Francisco, CA 94158",
       fallback: [-122.39051, 37.76898],
       offset: [-0.0003, 0.0],
-      tip: "Nurix Therapeutics · 455 Mission Bay Blvd S" },
+      tip: "Nurix Therapeutics · 19,320 SF · 455 Mission Bay Blvd S" },
     { id: "cH", type: "comp", label: "H",
       q: "1800 Owens Street, San Francisco, CA 94158",
       fallback: [-122.39381, 37.76823],
       offset: [0.0009, 0.0006],
-      tip: "Nudge (sublease from Dropbox) · 1800 Owens St" },
+      tip: "Nudge · 29,544 SF sublease · 1800 Owens St (in your building)" },
   ];
 
   const PEAR_INDEX = 0;
