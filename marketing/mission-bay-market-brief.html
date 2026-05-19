@@ -35,7 +35,7 @@
   @page { size: 17in 11in; margin: 0; }
 
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: #2A2925; }
+  html, body { margin: 0; padding: 0; background: #2A2925; height: 100%; }
   body {
     font-family: "DM Sans", system-ui, sans-serif;
     color: var(--ink);
@@ -43,13 +43,17 @@
     line-height: 1.35;
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricPrecision;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   .serif { font-family: "DM Serif Display", "DM Serif Text", Georgia, serif; font-weight: 400; }
 
   .page {
-    width: 17in;
-    height: 11in;
-    margin: 24px auto;
+    width: 100%;
+    height: 100vh;
+    min-width: 1100px;
+    min-height: 680px;
     background: var(--bg);
     position: relative;
     overflow: hidden;
@@ -57,8 +61,15 @@
     grid-template-rows: 78px 26px 1fr 86px;
   }
   @media print {
-    body { background: #fff; }
-    .page { margin: 0; box-shadow: none; }
+    body { background: #fff; display: block; }
+    .page {
+      width: 17in; height: 11in;
+      min-width: 0; min-height: 0;
+      margin: 0; box-shadow: none;
+    }
+    .resizer { display: none !important; }
+    .panel { overflow: hidden !important; }
+    .panel-head { position: static !important; }
   }
 
   /* HEADER */
@@ -139,10 +150,32 @@
   /* BODY */
   .body {
     display: grid;
-    grid-template-columns: 1fr 538px;
+    grid-template-columns: 1fr 8px var(--sidebar-w, 540px);
     height: 100%;
     min-height: 0;
   }
+
+  /* Drag handle between map and sidebar */
+  .resizer {
+    background: var(--rule);
+    cursor: col-resize;
+    position: relative;
+    transition: background 120ms ease;
+  }
+  .resizer::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px; height: 32px;
+    background: var(--peacock);
+    opacity: 0.35;
+    border-radius: 2px;
+  }
+  .resizer:hover, .resizer.dragging { background: var(--peacock-soft); }
+  .resizer:hover::before, .resizer.dragging::before { opacity: 0.85; }
+  body.dragging { cursor: col-resize; user-select: none; }
+  body.dragging .mapbox-map { pointer-events: none; }
 
   /* MAP */
   .map-wrap {
@@ -283,17 +316,28 @@
   }
   .panel {
     padding: 12px 20px 8px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
   }
+  .panel::-webkit-scrollbar { width: 6px; }
+  .panel::-webkit-scrollbar-track { background: transparent; }
+  .panel::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+  .panel::-webkit-scrollbar-thumb:hover { background: var(--peacock); }
   .panel + .panel { border-top: 1px solid var(--rule); }
   .panel-head {
     display: flex; align-items: baseline; justify-content: space-between;
     margin-bottom: 4px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 2;
   }
   .panel-title {
     font-family: "DM Serif Display", serif;
@@ -591,6 +635,8 @@
       </div>
 
     </div>
+
+    <div class="resizer" id="resizer" aria-label="Drag to resize sidebar" role="separator"></div>
 
     <!-- =========== SIDEBAR =========== -->
     <aside class="sidebar">
@@ -1188,6 +1234,56 @@
       // Signal completion so headless renderers can screenshot
       map.once("idle", () => { window.__mapReady = true; document.body.setAttribute("data-map-ready", "1"); });
     });
+
+    // Draggable resizer between map and sidebar
+    const resizer = document.getElementById("resizer");
+    const body    = document.querySelector(".body");
+    const root    = document.documentElement;
+    const MIN_SIDEBAR = 360;
+    const MAX_SIDEBAR_RATIO = 0.55; // up to 55% of body width
+
+    // Restore last width
+    const stored = parseInt(localStorage.getItem("rsrc:sidebar-w") || "", 10);
+    if (stored && stored >= MIN_SIDEBAR) root.style.setProperty("--sidebar-w", stored + "px");
+
+    let dragging = false;
+    resizer.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      resizer.setPointerCapture(e.pointerId);
+      resizer.classList.add("dragging");
+      document.body.classList.add("dragging");
+    });
+    resizer.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const rect = body.getBoundingClientRect();
+      const maxW = Math.min(rect.width * MAX_SIDEBAR_RATIO, rect.width - 480);
+      let w = rect.right - e.clientX;
+      w = Math.max(MIN_SIDEBAR, Math.min(maxW, w));
+      root.style.setProperty("--sidebar-w", w + "px");
+      if (map) map.resize();
+    });
+    const endDrag = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      resizer.releasePointerCapture(e.pointerId);
+      resizer.classList.remove("dragging");
+      document.body.classList.remove("dragging");
+      const current = parseInt(getComputedStyle(root).getPropertyValue("--sidebar-w"), 10);
+      if (current) localStorage.setItem("rsrc:sidebar-w", String(current));
+      if (map) map.resize();
+    };
+    resizer.addEventListener("pointerup", endDrag);
+    resizer.addEventListener("pointercancel", endDrag);
+
+    // Double-click resizer to reset to default
+    resizer.addEventListener("dblclick", () => {
+      root.style.setProperty("--sidebar-w", "540px");
+      localStorage.removeItem("rsrc:sidebar-w");
+      if (map) map.resize();
+    });
+
+    // Keep map sized when the window resizes
+    window.addEventListener("resize", () => { if (map) map.resize(); });
   })();
 </script>
 
