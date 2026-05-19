@@ -4,6 +4,24 @@ Dense, on-brand one-pager produced under the Resource brand-guard system.
 Anchored at **1800 Owens Street** (Pear Studio SF), with every property
 geocoded via Mapbox at render time.
 
+## Hosting on Vercel
+
+One-click deploy:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPneinken%2FCompMap&env=MAPBOX_TOKEN&envDescription=Mapbox+public+token+%28pk.%E2%80%A6%29+used+to+load+the+basemap.&project-name=mission-bay-market-brief)
+
+1. Click the button (or visit `vercel.com → New Project → Import Pneinken/CompMap`).
+2. Pick the `claude/local-area-marketing-visual-Mg7Bv` branch.
+3. Add an environment variable named **`MAPBOX_TOKEN`** with your Mapbox public token (`pk.…`).
+4. Deploy.
+
+`vercel.json` and `marketing/scripts/inject-vercel-token.mjs` handle the rest:
+the build step writes `marketing/config.local.js` from the env var, the
+output directory is `marketing/`, and the root URL redirects to the brief.
+Add the resulting `*.vercel.app` host to your Mapbox token's allowed URLs
+so the token can only be used from that origin.
+
+
 ## Files
 
 - `mission-bay-market-brief.html` — the deliverable. Open in any modern
